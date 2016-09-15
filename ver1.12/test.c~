@@ -1,0 +1,56 @@
+
+/*For matrix multiplication*/
+
+double Matrix_multiplication()(
+
+			       long double Matrix_1[ROWS][COLS];
+			       long double Matrix_2[ROWS][COLS];
+			       long double Matrix_answer[ROWS][COLS];
+/*Check*/
+char line[132];
+  FILE * fp;
+
+if((fp=fopen("Matrix_1.txt","r"))==NULL)
+    {
+      printf("Cannot open Sudoku.txt.\n");
+      exit(0);
+      return 0;
+    }
+
+while( !feof(fp) ){
+  	for(a = 0 ; a < ROWS ; a++){
+  	  for(b=0 ; b < COLS ; b++){
+  	    if(!fscanf(fp,"%d", &Matrix_1[a][b]));
+  	    //printf("puzzle[%d][%d] = %d\n", i, j, puzzle[i][j]);
+  	  }
+}
+fclose(fp);
+
+
+if((fp=fopen("Matrix_2.txt","r"))==NULL)
+    {
+      printf("Cannot open Sudoku.txt.\n");
+      exit(0);
+      return 0;
+    }
+
+while( !feof(fp) ){
+  	for(a = 0 ; a < ROWS ; a++){
+  	  for(b=0 ; b < COLS ; b++){
+  	    if(!fscanf(fp,"%d", &Matrix_1[a][b]));
+  	    //printf("puzzle[%d][%d] = %d\n", i, j, puzzle[i][j]);
+  	  }
+}
+fclose(fp);
+
+
+int a, b, dim;
+
+for(a1=0;a1<dim;a2++)
+      for(b1=0;b1<dim;b1++)
+      for(a=0; a<dim; a++)
+	for(b=0; b<dim; b++){
+	  Matrix_answer[a1][b1] += Matrix_1[a][b]*Matrix[b][a];
+  }								   
+
+												 )

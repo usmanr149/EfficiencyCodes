@@ -1,0 +1,264 @@
+/************************************************************/
+/* Usman Rizwan                                             */ 
+/*                                                          */
+/*                                                          */
+/* A program to solve linear equations via gaussian         */
+/* elimination.                                             */
+/************************************************************/
+
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h> 
+
+#define ROWS 20
+#define COLS 20
+
+long double eMatrix[ROWS][COLS];
+long double bVector[COLS];
+long double xVector[COLS];
+char line[132];
+FILE *inp;
+int N=3;
+int n;
+
+/* void allocmatrix(){ */
+/*    //allocate memory for matrixes */
+/*    int i,j; */
+  
+/*    if(eMatric==NULL || b==NULL || a==NULL){ */
+/*        printf("\nNot enough memory to allocate for %d equations.\n", N); */
+/*        exit(-1); */
+/*    } */
+/*    for(i=0; i<N; i++){ */
+/*        a[i] = new float[N]; */
+/*        if(a[i]==NULL){ */
+/* 	   printf("\nNot enough memory to allocate for %d equations.\n", N); */
+/*        } */
+/*    } */
+/*    for(i=0; i<N; i++){ */
+/*        for(j=0; j<N; j++){ */
+/* 	   a[i][j]=0; */
+/*        } */
+/*        b[i]=0; */
+/*        x[i]=0; */
+/*    } */
+/* } */
+
+int formmatrix()
+{
+
+  //FILE *inp;
+  long double xi[40], yi[40],ei[40];
+  long double x,y,e;
+  long double sum=0, sumx=0,sumx2=0,sumx3=0,sumx4=0,f=0,fx=0,fx2=0;
+  int ag;
+  int i,j,count;
+  int M;
+
+  if(eMatrix==NULL || bVector==NULL || xVector==NULL){ 
+       printf("\nNot enough memory to allocate for %d equations.\n", N);
+       return(0);
+   }
+
+  /* if(argc!=2) */
+  /*   { */
+  /*     printf("\n HelloWorld Filename \n"); */
+  /*     //exit(-1); */
+  /*     return 0; */
+  /*   } */
+
+  
+
+  /* if((inp=fopen(argv[1],"r"))==NULL) */
+  /*   { */
+  /*     printf("Cannot open %s.\n",inp); */
+  /*     //exit(-1); */
+  /*     return 0; */
+  /*   } */
+
+  printf("Parameters read from %s.\n",inp);
+
+    if(fgets(line,132,inp)!=NULL)
+      {
+	count=0;
+	while(fscanf(inp,"%Lf %Lf %Lf\n",&xi[count],&yi[count],&ei[count])!=EOF)
+	  {
+	    printf ("%d %Lf %Lf %Lf\n", count, xi[count],yi[count],ei[count]);
+	    count++;
+	      }
+	
+	      for(i=0;i<count;i++)
+	      	{
+		  ei[i]=1;
+	      	  //a[i]=x;
+	      	  //printf("xi[%d] = %Lf\n", i, xi[i]);
+		  sum+=1;//(ei[i]*ei[i]);
+		  sumx+=xi[i]/(ei[i]*ei[i]);
+		  sumx2+=xi[i]*xi[i]/(ei[i]*ei[i]);
+		  sumx3+=xi[i]*xi[i]*xi[i]/(ei[i]*ei[i]);
+		  sumx4+=xi[i]*xi[i]*xi[i]*xi[i]/(ei[i]*ei[i]);
+		  f+=yi[i]/(ei[i]*ei[i]);
+		  fx+=yi[i]*xi[i]/(ei[i]*ei[i]);
+		  fx2+=yi[i]*xi[i]*xi[i]/(ei[i]*ei[i]);
+		  //printf("%d :::: sumx2 = %Lf :::::%Lf\n", i, sumx2, xi[i]);
+	      	}
+
+	      eMatrix[0][0]=sum;
+	      eMatrix[0][1]=sumx;
+	      eMatrix[0][2]=sumx2;
+	      eMatrix[1][0]=eMatrix[0][1];
+	      eMatrix[1][1]=eMatrix[0][2];
+	      eMatrix[1][2]=sumx3;
+	      eMatrix[2][0]=eMatrix[1][1];
+	      eMatrix[2][1]=eMatrix[1][2];
+	      eMatrix[2][2]=sumx4;
+
+	      bVector[0]=f;
+	      bVector[1]=fx;
+	      bVector[2]=fx2;
+
+	      //fprintf(fp1,"%.3Lf %Lf %Lf %Lf %Lf\n",energy,k0*log10(energy)+b0,fmin,fmax,(fmax-fmin)/2);
+	  
+
+      }
+    //printf("Hello, world!\n");
+//return 0;
+} 
+
+void printmatrix(){
+   //print matrix "eMatrix"
+   int k,l;
+   printf("\n");
+   for(k=0; k<3; k++){
+       for(l=0; l<3; l++){
+	 printf(" %Lf*X%d + ", eMatrix[k][l],l);
+       }
+       //printf("**");
+       printf(" =%Lf\n", bVector[k]);
+	xVector[k]=0;
+   }
+   printf("\n");
+}
+
+void diagonal(){
+   int i, j, k;
+   float temp=0;
+   //printf("eMatrix[2][2] = %Lf \n", eMatrix[2][2]);
+   for(i=0; i<N; i++){
+       if(eMatrix[i][i]==0){
+	   for(j=0; j<N; j++){
+	       if(j==i) continue;
+	       if(eMatrix[j][i] !=0 && eMatrix[i][j]!=0){
+		   for(k=0; k<N; k++){
+		       temp = eMatrix[j][k];
+		       eMatrix[j][k] = eMatrix[i][k];
+		       eMatrix[i][k] = temp;
+		       printf("*");
+		   }
+		   temp = bVector[j];
+		   bVector[j] = bVector[i];
+		   bVector[i] = temp;
+		   break;
+	       }
+	   }
+       }
+   }
+}
+
+void SolveMatrix(){
+  int i=0,j=0, k=0,l;
+   //cls();
+   //count_num_lines();
+   //allocmatrix();
+   //rewind(InFile);
+   //read data from file
+   //readmatrix();
+   //check if there are 0 on main diagonal and exchange rows in that case
+   
+   //process rows
+   for(k=0; k<N; k++){
+       for(i=k+1; i<N; i++){
+	   if(eMatrix[k][k]==0){
+	       printf("\nSolution is not exist.\n");
+	       return;
+	   }
+	   long double M = eMatrix[i][k] / eMatrix[k][k];
+	   /* printf("eMatrix[%d][%d] = %Lf : eMatrix[%d][%d] = %Lf \n",i,k,k,k,eMatrix[i][k],eMatrix[k][k]); */
+	   /* printf("M = %Lf\n", M); */
+	   for(j=k; j<N; j++){
+	     /* printf("eMatrix[i][k] = %Lf \n eMatrix[k][j] = %Lf \n eMatrix[i][j] = %Lf\n",eMatrix[i][k],eMatrix[k][j],eMatrix[i][j]); */
+	   /* printf("M = %Lf\n", M); */
+	       eMatrix[i][j] = eMatrix[i][j] - M * eMatrix[k][j];
+	       /* printf("eMatrix[i][j] = %Lf \n",eMatrix[i][j]); */
+	       /* getchar(); */
+	       /* printf("\n \n"); */
+	   }
+	   bVector[i] = bVector[i] - M * bVector[k];
+       }
+   }
+
+   for(k=0; k<3; k++){
+       for(l=0; l<3; l++){
+	 printf(" %Lf*X%d + ", eMatrix[k][l],l);
+       }
+       printf("%Lf\n", bVector[k]);
+   }
+   
+   //printmatrix();
+   //this loop is for backward subtraction
+   for(i=N-1; i>=0; i--){
+       long double s = 0;
+       for(j = i; j<=N; j++){
+	 /* printf("s =  %Lf\n", s); */
+	   s = s+eMatrix[i][j]*xVector[j];
+	   /* printf("eMatrix[i][j] = %Lf : %d : %d \n",eMatrix[i][j], i,j);  */
+	   /* printf("********************\n"); */
+       }
+       /* printf("s =  %Lf\n", s); */
+       /* printf("bVector[i] = %Lf : %d \n",bVector[i], i);  */
+       xVector[i] = (bVector[i] - s) / eMatrix[i][i];
+       /* printf("xVector[i] = %Lf : %d \n",xVector[i], i); */
+       /* printf("&&&&&&&&&&&&&&&&&&\n"); */
+   }
+
+   for(i=0;i<3;i++){
+       printf("xVector[%d] = %10.14Lf\n", i, xVector[i]);
+   }
+}
+
+   
+
+
+int main(int argc, char *argv[]){
+
+  int i,j;
+
+  if(argc!=2)
+    {
+      printf("\n HelloWorld Filename \n");
+      //exit(-1);
+      return 0;
+    }
+
+  if((inp=fopen(argv[1],"r"))==NULL)
+    {
+      printf("Cannot open %s.\n",inp);
+      //exit(-1);
+      return 0;
+    }
+
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            eMatrix[i][j] = 0.0;
+	    bVector[i]=0;
+	    xVector[i]=0;
+        }
+    }
+
+  formmatrix();
+  printmatrix();
+  diagonal();
+  SolveMatrix();
+  
+}

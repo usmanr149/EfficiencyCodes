@@ -1,0 +1,7 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <stdlib.h> 
+
+#define ROWS 20
+#define COLS 20

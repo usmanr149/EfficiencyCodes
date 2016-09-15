@@ -1,0 +1,40 @@
+#include "foo.h"
+
+/*For matrix multiplication*/
+
+double Matrix_multiplication(long double Matrix_1[int dimR_1][int dimC_1], long double Matrix_2[dimR_2][dimC_2]){
+
+  int a1,a2,a;
+  long double Matrix_answer[ROWS][COLS];
+
+  //initialize
+  for(a1=0; a1<ROWS; a1++){
+    for(b1=0; b1<COLS; b1++){
+      Matrix_answer = 0;
+    }}
+
+  if( dimC_1 - dimR_2 == 0 )
+    { 
+      for(a1=0; a1<dimR_1; a1++){
+	for(b1=0; b1<dimC_2; b1++){
+	  for(a=0; a<dimC_1; a++){
+	    Matrix_answer[a1][b1] += Matrix_1[a1][a]*Matrix_2[a][b1];
+	    printf("a1 = %d \n", a1);
+	    printf("b1 = %d \n", b1);
+	    printf("a = %d \n", a);
+	    printf("Matrix[%d][%d] = %Lf \n", a1, b1, Matrix_1[a1][b1]);
+	    getchar();
+	  }
+	}
+      }
+      for(a1=0;a1<dimR_1;a1++){
+	for(b1=0;b1<dimC_2;b1++){
+	  printf("%Lf\t", Matrix_answer[a1][b1]);
+	}
+	printf("\n");
+      }
+    }
+  else printf("Not Valid\n");
+
+}
+

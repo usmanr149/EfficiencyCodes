@@ -1,0 +1,16 @@
+#define Extended_ROWS 40
+#define Extended_COLS 40
+
+#include "foo.h"
+
+/*First-order derivative matrix*/
+
+long double First_order_der(long double Matrix_1[int dimR_1][int dimC_1], long double Matrix_2[dimR_2][dimC_2]){
+
+   ReadCo60();
+   if( xi[i] <= energy0 ){
+     F_prime[ = 
+   }
+   
+
+}

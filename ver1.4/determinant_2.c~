@@ -1,0 +1,57 @@
+#include "foo.h"
+
+/*For calculating Determinant of the Matrix */
+double determinant(long double bMatrix[ROWS][COLS],int k)
+{
+  long double s=1,det=0,b[ROWS][COLS];
+  int i,j,m,n,c,l;
+
+  printf("\n\n\n");
+
+  for(k=0; k<d; k++){
+    for(l=0; l<d; l++){
+	 printf(" %Lf*X%d + ", bMatrix[k][l],l);
+}
+  printf(":\n");
+  }
+
+  if (d==1)
+    {
+     return (bMatrix[0][0]);
+    }
+  else
+    {
+     det=0;
+     for (c=0;c<d;c++)
+       {
+        m=0;
+        n=0;
+        for (i=0;i<d;i++)
+          {
+            for (j=0;j<d;j++)
+              {
+//printf("i = %d\t j = %d\t c = %d\n", i,j,c);
+                b[i][j]=0;
+                if (i != 0 && j != c)
+                 {
+                   b[m][n]=bMatrix[i][j];
+//printf("bMatrix[%d][%d] = %Lf\n", i,j,bMatrix[i][j]);
+                   if (n<(d-2))
+                    n++;
+                   else
+                    {
+                     n=0;
+                     m++;
+                     }
+                   }
+	      }
+	     /* printf("Press any button to continue..."); */
+	  }
+          det=det + s * (bMatrix[0][c] * determinant(b,d-1));
+          s=-1 * s;
+       }
+    }
+  printf("det = %Lf\n", det);
+//getchar();
+  return (det);
+}

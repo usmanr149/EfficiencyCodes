@@ -1,0 +1,24 @@
+%###Table Break###%
+\begin{table} 
+\centering
+\caption{The values of fit parameters and the scaling factors for the
+  activity uncalibrated source data sets obtained by solving
+  Eq.~\ref{eq:hypermatrixsolved} for the given $E_0$. Errors in parenthesis are 
+the diagonal elements from the matrix in Eq.~\ref{eq:variancefinal}.}
+\label{tab:bestfit}
+\begin{tabular}{ll}
+\hline
+~ &  Fit parameters\\
+$E_{0}$ & 176.73~keV & 195.47~keV \\
+$\alpha_1$  & -1.53(7) & -1.18(3)\\
+$\alpha_2$  & -2.1(4) & -1.7(2)\\
+$\alpha_3$  & -0.4(1) & -0.019(5)\\
+$\alpha_4$  & -0.029(9) & -1.18(3)\\
+$\beta_1^a$ & 6.22(2) & 6.27(2) \\
+$\beta_2^b$ & 5.30(2)  & 5.33(2) \\
+$\beta_3^c$ & 6.14(2)&  6.18(2)  \\
+$\chi^2/(n-\nu)$ & 5.8  & 1.6\\ \hline
+\end{tabular}
+\label{tab:fitparamaeters}
+\end{table}
+%###Table Break###%
